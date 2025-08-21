@@ -1,6 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Index from './pages/Index';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -13,6 +13,17 @@ import VerificationAdmin from './components/VerificationAdmin';
 import NotFound from './pages/NotFound';
 import { Toaster } from './components/ui/toaster';
 
+// Protected Route Component
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const { isAuthenticated } = useAuth();
+  
+  if (!isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
+  
+  return <>{children}</>;
+};
+
 function App() {
   return (
     <AuthProvider>
@@ -21,12 +32,12 @@ function App() {
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/deposit" element={<Deposit />} />
-          <Route path="/withdrawal" element={<Withdrawal />} />
+          <Route path="/deposit" element={<ProtectedRoute><Deposit /></ProtectedRoute>} />
+          <Route path="/withdrawal" element={<ProtectedRoute><Withdrawal /></ProtectedRoute>} />
           <Route path="/education" element={<Education />} />
           <Route path="/binary-options" element={<BinaryOptions />} />
-          <Route path="/settings" element={<UserSettings />} />
-          <Route path="/verification-admin" element={<VerificationAdmin />} />
+          <Route path="/settings" element={<ProtectedRoute><UserSettings /></ProtectedRoute>} />
+          <Route path="/verification-admin" element={<ProtectedRoute><VerificationAdmin /></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Toaster />

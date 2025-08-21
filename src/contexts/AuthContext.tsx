@@ -47,6 +47,12 @@ interface AuthContextType {
   // Dubai verification methods
   submitDubaiVerification: (verificationData: any) => void;
   checkDubaiVerificationRequired: () => boolean;
+  // Account switching functionality
+  switchAccount: (accountType: 'demo' | 'live') => void;
+  currentBalance: number;
+  isLiveBalanceVisible: boolean;
+  clearAndReinitializeUser: () => void;
+  cleanupInvalidUserData: () => boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -59,19 +65,7 @@ export const useAuth = () => {
   return context;
 };
 
-// Two default users
-// Remove Samuel user definition
-// const samuelUser: User = {
-//   id: '1',
-//   name: 'Samuel Joseph',
-//   email: 'samuelkjoseph2020@gmail.com',
-//   demoBalance: 111111.45,
-//   liveBalance: 145897,
-//   totalTrades: 11893,
-//   winRate: 95,
-//   totalPnL: 349000,
-//   tradeHistory: generateTradeHistory()
-// };
+// User definition
 
 const justinUser: User = {
   id: '2',
@@ -96,16 +90,40 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
+    // Check if there's a saved user and authentication state
     const savedUser = localStorage.getItem('qxTrader_user');
-    if (!savedUser) {
-      // Initialize demo-ready user
+    const savedAuthState = localStorage.getItem('qxTrader_auth');
+    
+    if (savedUser) {
+      const userData = JSON.parse(savedUser);
+      
+      // Check if the saved user is valid (should be Justin)
+      if (userData.email === 'justin@thealphaandomega.org') {
+        if (savedAuthState === 'true') {
+          // User was previously authenticated, restore their session
+          setUser(userData);
+          setIsAuthenticated(true);
+          console.log('Restored authenticated user session:', userData.name);
+        } else {
+          // User exists but not authenticated
+          setUser(userData);
+          setIsAuthenticated(false);
+          console.log('Found saved user but not authenticated:', userData.name);
+        }
+      } else {
+        // Invalid user data (e.g., Jonathan), replace with Justin's data
+        console.log('Invalid user data found, replacing with Justin:', userData.name);
+        localStorage.setItem('qxTrader_user', JSON.stringify(justinUser));
+        setUser(justinUser);
+        setIsAuthenticated(false);
+        localStorage.removeItem('qxTrader_auth');
+      }
+    } else {
+      // No saved user, initialize with Justin's data
       localStorage.setItem('qxTrader_user', JSON.stringify(justinUser));
       setUser(justinUser);
       setIsAuthenticated(false);
-    } else {
-      const userData = JSON.parse(savedUser);
-      setUser(userData);
-      setIsAuthenticated(true);
+      console.log('Initialized new user:', justinUser.name);
     }
   }, []);
 
@@ -134,6 +152,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (authenticatedUser) {
       setUser(authenticatedUser);
       setIsAuthenticated(true);
+      // Save authentication state to localStorage
+      localStorage.setItem('qxTrader_auth', 'true');
       return true;
     }
 
@@ -141,9 +161,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = () => {
-    localStorage.removeItem('qxTrader_user');
-    setUser(null);
+    // Keep user data but remove authentication
     setIsAuthenticated(false);
+    // Remove authentication state from localStorage
+    localStorage.removeItem('qxTrader_auth');
   };
 
   const updateBalance = (amount: number) => {
@@ -163,6 +184,47 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
+  };
+
+  // Function to force clear all user data and reinitialize
+  const clearAndReinitializeUser = () => {
+    const wasAuthenticated = isAuthenticated;
+    localStorage.removeItem('qxTrader_user');
+    localStorage.removeItem('userDeposits');
+    localStorage.removeItem('userWithdrawals');
+    localStorage.removeItem('userTrades');
+    
+    // Reinitialize with Justin's data
+    localStorage.setItem('qxTrader_user', JSON.stringify(justinUser));
+    setUser(justinUser);
+    
+    // Preserve authentication state if user was logged in
+    if (wasAuthenticated) {
+      setIsAuthenticated(true);
+      localStorage.setItem('qxTrader_auth', 'true');
+    } else {
+      setIsAuthenticated(false);
+      localStorage.removeItem('qxTrader_auth');
+    }
+    
+    console.log('User data cleared and reinitialized with:', justinUser.name);
+  };
+
+  // Function to clean up invalid user data
+  const cleanupInvalidUserData = () => {
+    const savedUser = localStorage.getItem('qxTrader_user');
+    if (savedUser) {
+      const userData = JSON.parse(savedUser);
+      if (userData.email !== 'justin@thealphaandomega.org') {
+        console.log('Cleaning up invalid user data:', userData.name);
+        localStorage.setItem('qxTrader_user', JSON.stringify(justinUser));
+        setUser(justinUser);
+        localStorage.removeItem('qxTrader_auth');
+        setIsAuthenticated(false);
+        return true;
+      }
+    }
+    return false;
   };
 
   // Dubai verification methods
@@ -226,7 +288,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     checkDubaiVerificationRequired,
     switchAccount,
     currentBalance,
-    isLiveBalanceVisible
+    isLiveBalanceVisible,
+    clearAndReinitializeUser,
+    cleanupInvalidUserData
   };
 
   return (

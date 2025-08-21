@@ -131,7 +131,7 @@ const BALANCE_THRESHOLD = 50000; // $50,000 USD
 5. **Trading Re-enablement**: Post-verification functionality
 
 ### Test Data
-- **Test User**: Jonathan George Jeremiah
+- **Test User**: Justin Arokiaswamy
 - **Test Balance**: $55,000 (above threshold)
 - **Test Verification**: Complete verification workflow
 
