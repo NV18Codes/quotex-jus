@@ -3,8 +3,6 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import VerificationButton from '@/components/VerificationButton';
-import DubaiVerificationModal from '@/components/DubaiVerificationModal';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -54,7 +52,6 @@ const UserSettings = () => {
     tradeAlerts: true,
     newsAlerts: true
   });
-  const [showVerificationModal, setShowVerificationModal] = useState(false);
 
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -253,44 +250,7 @@ const UserSettings = () => {
                       </div>
                     </div>
                     
-                    {/* Dubai Verification Section */}
-                    <Separator className="bg-gray-700" />
-                    <div>
-                      <Label className="text-gray-300 mb-3 block">Dubai Region Verification</Label>
-                      <div className="space-y-4">
-                        <div className="flex items-center gap-4">
-                          <Button
-                            onClick={() => setShowVerificationModal(true)}
-                            className="bg-blue-600 hover:bg-blue-700"
-                            size="sm"
-                          >
-                            <Shield className="h-4 w-4 mr-2" />
-                            Verify Account
-                          </Button>
-                          <div className="text-sm text-gray-400">
-                            {user?.liveBalance > 50000 
-                              ? 'High balance detected. Verification recommended for enhanced security and compliance.'
-                              : 'Complete verification for enhanced account security and compliance.'
-                            }
-                          </div>
-                        </div>
-                        
-                        {/* Processing Time Info */}
-                        <div className="bg-blue-900/20 border border-blue-800/30 rounded-lg p-4">
-                          <div className="flex items-start gap-3">
-                            <Clock className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
-                            <div>
-                              <h4 className="font-medium text-blue-300 mb-2">Verification Processing</h4>
-                              <div className="text-sm text-blue-400 space-y-1">
-                                <p>• Standard processing time: <strong>48 hours</strong></p>
-                                <p>• You'll receive email notification upon completion</p>
-                                <p>• Trading continues normally during verification</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    {/* Removed Dubai Verification Section */}
                     <Separator className="bg-gray-700" />
                     <div className="flex gap-4">
                       <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700">
@@ -610,10 +570,10 @@ const UserSettings = () => {
       </div>
       
       {/* Verification Modal */}
-      <DubaiVerificationModal
+      {/* <DubaiVerificationModal
         isOpen={showVerificationModal}
         onClose={() => setShowVerificationModal(false)}
-      />
+      /> */}
       <Footer />
     </div>
   );

@@ -9,7 +9,6 @@ import Withdrawal from './pages/Withdrawal';
 import Education from './pages/Education';
 import BinaryOptions from './pages/BinaryOptions';
 import UserSettings from './pages/UserSettings';
-import VerificationAdmin from './components/VerificationAdmin';
 import NotFound from './pages/NotFound';
 import { Toaster } from './components/ui/toaster';
 
@@ -37,7 +36,6 @@ function App() {
           <Route path="/education" element={<Education />} />
           <Route path="/binary-options" element={<BinaryOptions />} />
           <Route path="/settings" element={<ProtectedRoute><UserSettings /></ProtectedRoute>} />
-          <Route path="/verification-admin" element={<ProtectedRoute><VerificationAdmin /></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Toaster />

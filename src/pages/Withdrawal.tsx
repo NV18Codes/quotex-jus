@@ -3,7 +3,6 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import DubaiVerificationModal from '@/components/DubaiVerificationModal';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -20,22 +19,18 @@ const Withdrawal = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showVerificationModal, setShowVerificationModal] = useState(false);
 
   const [withdrawalData, setWithdrawalData] = useState({
-    amount: '10',
-    paymentMethod: 'Net Banking',
-    firstName: 'JOSHUA',
-    lastName: 'KENNETH JOSEPH',
-    address: '#13/5 1st cross,anjenappa block, Bangalore- 560046.',
-    phone: '',
-    ifscCode: 'abcd0999999',
-    accountNumber: ''
+    amount: '100',
+    paymentMethod: 'Bank Transfer',
+    firstName: 'JUSTIN',
+    lastName: 'AROKIASWAMY',
+    email: 'justin@thealphaandomega.org',
+    phone: '+1 (555) 123-4567',
+    bankName: 'Chase Bank',
+    accountNumber: '****1234',
+    routingNumber: '021000021'
   });
-
-  // Check if user is verified
-  const isVerified = user?.dubaiVerification?.isVerified;
-  const verificationStatus = user?.dubaiVerification?.verificationStatus;
 
   // Redirect to home if not authenticated
   useEffect(() => {
@@ -47,12 +42,6 @@ const Withdrawal = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Check verification status
-    if (!isVerified) {
-      setShowVerificationModal(true);
-      return;
-    }
-
     const amount = parseFloat(withdrawalData.amount);
     
     if (isNaN(amount) || amount <= 0) {
@@ -100,14 +89,15 @@ const Withdrawal = () => {
 
       // Reset form
       setWithdrawalData({
-        amount: '10',
-        paymentMethod: 'Net Banking',
-        firstName: 'JOSHUA',
-        lastName: 'KENNETH JOSEPH',
-        address: '#13/5 1st cross,anjenappa block, Bangalore- 560046.',
-        phone: '',
-        ifscCode: 'abcd0999999',
-        accountNumber: ''
+        amount: '100',
+        paymentMethod: 'Bank Transfer',
+        firstName: 'JUSTIN',
+        lastName: 'AROKIASWAMY',
+        email: 'justin@thealphaandomega.org',
+        phone: '+1 (555) 123-4567',
+        bankName: 'Chase Bank',
+        accountNumber: '****1234',
+        routingNumber: '021000021'
       });
 
     } catch (error) {
@@ -148,23 +138,7 @@ const Withdrawal = () => {
         </div>
 
         {/* Verification Warning */}
-        {!isVerified && (
-          <Alert className="mb-6 border-yellow-600 bg-yellow-900/20">
-            <AlertTriangle className="h-4 w-4 text-yellow-600" />
-            <AlertDescription className="text-yellow-300">
-              <strong>Verification Required:</strong> You must complete Dubai region verification before making withdrawals. 
-              <Button 
-                onClick={() => setShowVerificationModal(true)}
-                variant="outline" 
-                size="sm" 
-                className="ml-3 border-yellow-600 text-yellow-300 hover:bg-yellow-900/30"
-              >
-                <Shield className="h-4 w-4 mr-2" />
-                Complete Verification
-              </Button>
-            </AlertDescription>
-          </Alert>
-        )}
+        {/* Removed verification warning as per edit hint */}
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Account Information */}
@@ -192,10 +166,10 @@ const Withdrawal = () => {
                   <div className="flex items-center justify-between">
                     <span className="text-gray-300">Verification Status</span>
                     <Badge 
-                      variant={isVerified ? "default" : "destructive"}
-                      className={isVerified ? "bg-green-600" : "bg-red-600"}
+                      variant="default"
+                      className="bg-green-600"
                     >
-                      {isVerified ? "Verified" : "Not Verified"}
+                      Verified
                     </Badge>
                   </div>
                 </div>
@@ -213,23 +187,7 @@ const Withdrawal = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                {!isVerified ? (
-                  <div className="text-center py-12">
-                    <Shield className="h-16 w-16 text-yellow-500 mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold text-white mb-2">Verification Required</h3>
-                    <p className="text-gray-400 mb-6">
-                      To protect your account and comply with regulations, you must complete 
-                      Dubai region verification before making withdrawals.
-                    </p>
-                    <Button 
-                      onClick={() => setShowVerificationModal(true)}
-                      className="bg-blue-600 hover:bg-blue-700"
-                    >
-                      <Shield className="h-4 w-4 mr-2" />
-                      Complete Verification
-                    </Button>
-                  </div>
-                ) : (
+                {/* Removed verification check from form */}
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
@@ -260,10 +218,10 @@ const Withdrawal = () => {
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent className="bg-gray-700 border-gray-600">
-                            <SelectItem value="Net Banking" className="text-white hover:bg-gray-600">
+                            <SelectItem value="Bank Transfer" className="text-white hover:bg-gray-600">
                               <div className="flex items-center gap-2">
                                 <Banknote className="h-4 w-4" />
-                                Net Banking
+                                Bank Transfer
                               </div>
                             </SelectItem>
                             <SelectItem value="Credit Card" className="text-white hover:bg-gray-600">
@@ -302,58 +260,72 @@ const Withdrawal = () => {
                     </div>
 
                     <div>
-                      <Label htmlFor="address" className="text-gray-300">Address</Label>
-                      <Textarea
-                        id="address"
-                        value={withdrawalData.address}
-                        onChange={(e) => handleInputChange('address', e.target.value)}
+                      <Label htmlFor="email" className="text-gray-300">Email</Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        value={withdrawalData.email}
+                        onChange={(e) => handleInputChange('email', e.target.value)}
                         className="mt-1 bg-gray-700 border-gray-600 text-white"
-                        rows={3}
+                        placeholder="Enter your email"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="phone" className="text-gray-300">Phone Number</Label>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        value={withdrawalData.phone}
+                        onChange={(e) => handleInputChange('phone', e.target.value)}
+                        className="mt-1 bg-gray-700 border-gray-600 text-white"
+                        placeholder="+1 (555) 123-4567"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="bankName" className="text-gray-300">Bank Name</Label>
+                      <Input
+                        id="bankName"
+                        value={withdrawalData.bankName}
+                        onChange={(e) => handleInputChange('bankName', e.target.value)}
+                        className="mt-1 bg-gray-700 border-gray-600 text-white"
+                        placeholder="Enter your bank name"
                         required
                       />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <Label htmlFor="phone" className="text-gray-300">Phone Number</Label>
+                        <Label htmlFor="accountNumber" className="text-gray-300">Account Number</Label>
                         <Input
-                          id="phone"
-                          type="tel"
-                          value={withdrawalData.phone}
-                          onChange={(e) => handleInputChange('phone', e.target.value)}
+                          id="accountNumber"
+                          value={withdrawalData.accountNumber}
+                          onChange={(e) => handleInputChange('accountNumber', e.target.value)}
                           className="mt-1 bg-gray-700 border-gray-600 text-white"
-                          placeholder="+1 (555) 123-4567"
+                          placeholder="Enter your account number"
                           required
                         />
                       </div>
                       
                       <div>
-                        <Label htmlFor="ifscCode" className="text-gray-300">IFSC Code</Label>
+                        <Label htmlFor="routingNumber" className="text-gray-300">Routing Number</Label>
                         <Input
-                          id="ifscCode"
-                          value={withdrawalData.ifscCode}
-                          onChange={(e) => handleInputChange('ifscCode', e.target.value)}
+                          id="routingNumber"
+                          value={withdrawalData.routingNumber}
+                          onChange={(e) => handleInputChange('routingNumber', e.target.value)}
                           className="mt-1 bg-gray-700 border-gray-600 text-white"
+                          placeholder="Enter your routing number"
                           required
                         />
                       </div>
                     </div>
 
-                    <div>
-                      <Label htmlFor="accountNumber" className="text-gray-300">Account Number</Label>
-                      <Input
-                        id="accountNumber"
-                        value={withdrawalData.accountNumber}
-                        onChange={(e) => handleInputChange('accountNumber', e.target.value)}
-                        className="mt-1 bg-gray-700 border-gray-600 text-white"
-                        placeholder="Enter your account number"
-                        required
-                      />
-                    </div>
-
                     <Button
                       type="submit"
-                      disabled={isSubmitting || !isVerified}
+                      disabled={isSubmitting}
                       className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {isSubmitting ? (
@@ -369,7 +341,7 @@ const Withdrawal = () => {
                       )}
                     </Button>
                   </form>
-                )}
+                {/* End of removed verification check */}
               </CardContent>
             </Card>
           </div>
@@ -398,10 +370,7 @@ const Withdrawal = () => {
       </div>
 
       {/* Verification Modal */}
-      <DubaiVerificationModal
-        isOpen={showVerificationModal}
-        onClose={() => setShowVerificationModal(false)}
-      />
+      {/* Removed verification modal as per edit hint */}
 
       <Footer />
     </div>

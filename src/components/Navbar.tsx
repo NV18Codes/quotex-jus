@@ -22,7 +22,8 @@ import {
   Mail,
   Plus,
   Minus,
-  Shield
+  Shield,
+  History
 } from 'lucide-react';
 import AuthModal from './AuthModal';
 
@@ -43,14 +44,14 @@ const Navbar = () => {
 
   const authenticatedNavigation = [
     { name: 'Dashboard', href: '/', icon: Home },
-    { name: 'Binary Options', href: '/binary-options', icon: TrendingUp },
+    { name: 'Binary Options', href: '/binary-options', icon: BarChart3 },
     { name: 'Education', href: '/education', icon: BookOpen },
     { name: 'Deposit', href: '/deposit', icon: Plus },
     { name: 'Withdrawal', href: '/withdrawal', icon: Minus },
+    { name: 'Transactions', href: '/transactions', icon: History },
     { name: 'Settings', href: '/settings', icon: Settings },
     { name: 'About', href: '/about', icon: Info },
-    { name: 'Contact', href: '/contact', icon: Mail },
-    { name: 'Verification Admin', href: '/verification-admin', icon: Shield }
+    { name: 'Contact', href: '/contact', icon: Mail }
   ];
 
   const handleLogout = () => {
