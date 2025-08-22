@@ -56,12 +56,12 @@ const justinUser: User = {
   name: 'Justin Arokiaswamy',
   email: 'justin@thealphaandomega.org',
   demoBalance: 10000,
-  liveBalance: 0,
+  liveBalance: 1000, // Live balance set to 1000 as requested
   totalTrades: 0,
   winRate: 0,
   totalPnL: 0,
   tradeHistory: [],
-  accountType: 'demo',
+  accountType: 'demo'
 };
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {

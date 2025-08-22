@@ -219,10 +219,17 @@ const Navbar = () => {
                   </div>
                   
                   {/* Balance Display */}
-                  <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg px-4 py-2 shadow-lg">
-                    <Badge className="bg-transparent text-white border-0 text-sm font-semibold">
-                      ${user?.demoBalance.toLocaleString()}
-                    </Badge>
+                  <div className="flex space-x-2">
+                    <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg px-3 py-2 shadow-lg">
+                      <Badge className="bg-transparent text-white border-0 text-xs font-semibold">
+                        Demo: ${user?.demoBalance.toLocaleString()}
+                      </Badge>
+                    </div>
+                    <div className="bg-gradient-to-r from-green-600 to-green-700 rounded-lg px-3 py-2 shadow-lg">
+                      <Badge className="bg-transparent text-white border-0 text-xs font-semibold">
+                        Live: ${user?.liveBalance.toLocaleString()}
+                      </Badge>
+                    </div>
                   </div>
                   
                   {/* Settings & Logout */}

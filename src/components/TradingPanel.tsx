@@ -97,8 +97,8 @@ const TradingPanel = () => {
             </div>
             <div>
               <div className="text-sm text-gray-400">Live Account</div>
-              <div className="text-lg font-semibold text-gray-400">
-                $0.00
+              <div className="text-lg font-semibold text-green-400">
+                ${user?.liveBalance.toLocaleString()}
               </div>
             </div>
           </div>

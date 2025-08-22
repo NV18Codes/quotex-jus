@@ -97,67 +97,17 @@ const Transactions = () => {
       timestamp: new Date(deposit.timestamp)
     }));
 
-    // Sample deposit transactions to show $60k balance + new $8k deposit
+    // Sample deposit transactions to show $1k balance
     const sampleDeposits: Transaction[] = [
       {
         id: 'deposit_sample_1',
-        order: 'D14000000',
+        order: 'D10000000',
         date: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB'), // 30 days ago
         status: 'succeeded',
         type: 'deposit',
         paymentSystem: 'Bank Transfer',
-        amount: 14000.00,
+        amount: 1000.00,
         timestamp: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
-      },
-      {
-        id: 'deposit_sample_2',
-        order: 'D70000000',
-        date: new Date(Date.now() - 25 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB'), // 25 days ago
-        status: 'succeeded',
-        type: 'deposit',
-        paymentSystem: 'Bank Transfer',
-        amount: 7000.00,
-        timestamp: new Date(Date.now() - 25 * 24 * 60 * 60 * 1000)
-      },
-      {
-        id: 'deposit_sample_3',
-        order: 'D14000001',
-        date: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB'), // 20 days ago
-        status: 'succeeded',
-        type: 'deposit',
-        paymentSystem: 'Bank Transfer',
-        amount: 14000.00,
-        timestamp: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000)
-      },
-      {
-        id: 'deposit_sample_4',
-        order: 'D20000000',
-        date: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB'), // 15 days ago
-        status: 'succeeded',
-        type: 'deposit',
-        paymentSystem: 'Bank Transfer',
-        amount: 20000.00,
-        timestamp: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000)
-      },
-      {
-        id: 'deposit_sample_5',
-        order: 'D50000000',
-        date: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB'), // 10 days ago
-        status: 'succeeded',
-        type: 'deposit',
-        paymentSystem: 'Bank Transfer',
-        amount: 5000.00,
-        timestamp: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000)
-      },
-      {
-        id: 'deposit_sample_6',
-        order: 'D80000000',
-        date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB'), // 2 days ago
-        status: 'succeeded',
-        type: 'deposit',
-        paymentSystem: 'Bank Transfer',
-        amount: 8000.00,
-        timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000)
       }
     ];
 

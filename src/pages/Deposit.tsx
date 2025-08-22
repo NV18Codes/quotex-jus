@@ -22,9 +22,9 @@ const Deposit = () => {
   const [depositData, setDepositData] = useState({
     amount: '100',
     paymentMethod: 'Bank Transfer',
-    firstName: 'JOSHUA',
-    lastName: 'KENNETH JOSEPH',
-    email: 'joshua.kenneth@example.com',
+    firstName: 'Justin',
+    lastName: 'Arokiaswamy',
+    email: 'justin@thealphaandomega.org',
     phone: '+1 (555) 123-4567'
   });
 
@@ -85,9 +85,9 @@ const Deposit = () => {
       setDepositData({
         amount: '100',
         paymentMethod: 'Bank Transfer',
-        firstName: 'JOSHUA',
-        lastName: 'KENNETH JOSEPH',
-        email: 'joshua.kenneth@example.com',
+        firstName: 'Justin',
+        lastName: 'Arokiaswamy',
+        email: 'justin@thealphaandomega.org',
         phone: '+1 (555) 123-4567'
       });
 
@@ -153,6 +153,13 @@ const Deposit = () => {
                   <div className="text-sm text-gray-400">Current demo balance</div>
                 </div>
                 
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-green-400">
+                    ${user.liveBalance.toLocaleString()}
+                  </div>
+                  <div className="text-sm text-gray-400">Current live balance</div>
+                </div>
+                
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="text-gray-300">Account Type</span>
@@ -161,6 +168,10 @@ const Deposit = () => {
                   <div className="flex items-center justify-between">
                     <span className="text-gray-300">User ID</span>
                     <span className="text-sm text-gray-400 font-mono">{user.id}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-300">Deposits Go To</span>
+                    <Badge className="bg-green-600 text-white">Live Balance</Badge>
                   </div>
                 </div>
               </CardContent>
@@ -195,8 +206,11 @@ const Deposit = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-white">
                   <TrendingUp className="h-5 w-5" />
-                  Deposit Request
+                  Deposit to Live Balance
                 </CardTitle>
+                <p className="text-gray-400 text-sm mt-1">
+                  Deposits will be added to your live trading balance
+                </p>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">

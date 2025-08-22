@@ -41,16 +41,24 @@ const TradingDashboard = () => {
             <div>
               <h1 className="text-3xl font-bold text-white">Welcome back, {user?.name}!</h1>
               <p className="text-gray-400 mt-2">
-                Ready to make your next trade? Current balance:
+                Ready to make your next trade? Current balances:
                 <span className="font-semibold text-blue-400 ml-1">
                   ${user?.demoBalance.toLocaleString()}
                 </span>
-                <span className="text-xs text-gray-500 ml-2">(Demo account)</span>
+                <span className="text-xs text-gray-500 ml-2">(Demo)</span>
+                <span className="font-semibold text-green-400 ml-3">
+                  ${user?.liveBalance.toLocaleString()}
+                </span>
+                <span className="text-xs text-gray-500 ml-2">(Live)</span>
               </p>
               <div className="flex items-center gap-4 mt-2">
                 <Badge className="bg-blue-600 text-white">
                   <Activity className="h-3 w-3 mr-1" />
-                  Demo Account
+                  Demo: ${user?.demoBalance.toLocaleString()}
+                </Badge>
+                <Badge className="bg-green-600 text-white">
+                  <Activity className="h-3 w-3 mr-1" />
+                  Live: ${user?.liveBalance.toLocaleString()}
                 </Badge>
               </div>
             </div>
@@ -126,6 +134,24 @@ const TradingDashboard = () => {
                   </div>
                   <div className="p-2 rounded-lg bg-blue-900/20">
                     <Activity className="h-4 w-4 text-blue-400" />
+                  </div>
+                </div>
+                <div className="flex items-center justify-between p-3 border border-gray-600 rounded-lg bg-gray-700">
+                  <div>
+                    <div className="text-sm text-gray-400">Demo Balance</div>
+                    <div className="text-lg font-bold text-blue-400">${user?.demoBalance.toLocaleString()}</div>
+                  </div>
+                  <div className="p-2 rounded-lg bg-blue-900/20">
+                    <Activity className="h-4 w-4 text-blue-400" />
+                  </div>
+                </div>
+                <div className="flex items-center justify-between p-3 border border-gray-600 rounded-lg bg-gray-700">
+                  <div>
+                    <div className="text-sm text-gray-400">Live Balance</div>
+                    <div className="text-lg font-bold text-green-400">${user?.liveBalance.toLocaleString()}</div>
+                  </div>
+                  <div className="p-2 rounded-lg bg-green-900/20">
+                    <TrendingUp className="h-4 w-4 text-green-400" />
                   </div>
                 </div>
                 <div className="flex items-center justify-between p-3 border border-gray-600 rounded-lg bg-gray-700">
