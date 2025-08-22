@@ -37,6 +37,10 @@ interface AuthContextType {
   isLiveBalanceVisible: boolean;
   clearAndReinitializeUser: () => void;
   cleanupInvalidUserData: () => boolean;
+  getLiveBalance: () => number;
+  getDemoBalance: () => number;
+  resetLiveBalance: () => void;
+  refreshUserData: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -78,6 +82,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       
       // Check if the saved user is valid (should be Justin)
       if (userData.email === 'justin@thealphaandomega.org') {
+        // Ensure live balance is always $1,000
+        if (userData.liveBalance !== 1000) {
+          userData.liveBalance = 1000;
+          localStorage.setItem('qxTrader_user', JSON.stringify(userData));
+          console.log('Corrected live balance to $1,000');
+        }
+        
+        console.log('User data loaded - Demo Balance:', userData.demoBalance, 'Live Balance:', userData.liveBalance);
+        
         if (savedAuthState === 'true') {
           // User was previously authenticated, restore their session
           setUser(userData);
@@ -103,6 +116,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser(justinUser);
       setIsAuthenticated(false);
       console.log('Initialized new user:', justinUser.name);
+      console.log('New user balances - Demo:', justinUser.demoBalance, 'Live:', justinUser.liveBalance);
     }
   }, []);
 
@@ -121,6 +135,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const savedUser = localStorage.getItem('qxTrader_user');
       if (savedUser) {
         authenticatedUser = JSON.parse(savedUser);
+        // Ensure live balance is always $1,000
+        if (authenticatedUser.liveBalance !== 1000) {
+          authenticatedUser.liveBalance = 1000;
+          localStorage.setItem('qxTrader_user', JSON.stringify(authenticatedUser));
+          console.log('Corrected live balance to $1,000 during login');
+        }
       } else {
         authenticatedUser = justinUser;
         // Only set localStorage if new user
@@ -148,12 +168,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const updateBalance = (amount: number) => {
     if (user) {
+      const newLiveBalance = Math.max(1000, user.liveBalance + amount);
       const updatedUser = {
         ...user,
-        liveBalance: user.liveBalance + amount
+        liveBalance: newLiveBalance
       };
       setUser(updatedUser);
       localStorage.setItem('qxTrader_user', JSON.stringify(updatedUser));
+      console.log(`Live balance updated: $${user.liveBalance} + $${amount} = $${newLiveBalance}`);
     }
   };
 
@@ -224,6 +246,40 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Check if live balance should be visible (for demo purposes, always false)
   const isLiveBalanceVisible = false;
 
+  // Ensure live balance is always accessible
+  const getLiveBalance = () => user?.liveBalance || 0;
+  const getDemoBalance = () => user?.demoBalance || 0;
+
+  // Function to reset live balance to $1,000
+  const resetLiveBalance = () => {
+    if (user) {
+      const updatedUser = {
+        ...user,
+        liveBalance: 1000
+      };
+      setUser(updatedUser);
+      localStorage.setItem('qxTrader_user', JSON.stringify(updatedUser));
+      console.log('Live balance reset to $1,000');
+    }
+  };
+
+  // Function to force refresh user data and ensure correct balances
+  const refreshUserData = () => {
+    const savedUser = localStorage.getItem('qxTrader_user');
+    if (savedUser) {
+      const userData = JSON.parse(savedUser);
+      if (userData.email === 'justin@thealphaandomega.org') {
+        // Ensure live balance is always $1,000
+        if (userData.liveBalance !== 1000) {
+          userData.liveBalance = 1000;
+          localStorage.setItem('qxTrader_user', JSON.stringify(userData));
+          console.log('Corrected live balance to $1,000 during refresh');
+        }
+        setUser(userData);
+      }
+    }
+  };
+
   const value = {
     user,
     login,
@@ -235,7 +291,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     currentBalance,
     isLiveBalanceVisible,
     clearAndReinitializeUser,
-    cleanupInvalidUserData
+    cleanupInvalidUserData,
+    getLiveBalance,
+    getDemoBalance,
+    resetLiveBalance,
+    refreshUserData
   };
 
   return (
