@@ -418,24 +418,38 @@ const Markets = () => {
                     </Select>
                   </div>
                   
-                  <div className="grid grid-cols-2 gap-4 pt-4">
+                  {/* Trade Buttons */}
+                  <div className="grid grid-cols-2 gap-4 mt-6">
                     <Button
                       onClick={() => handleTrade('buy')}
                       disabled={isTrading}
-                      className="bg-green-600 text-white hover:bg-green-700 disabled:bg-green-800 py-4 text-lg font-semibold shadow-lg"
+                      className="bg-green-600 text-white hover:bg-green-700 disabled:bg-green-800 disabled:cursor-not-allowed py-3 text-lg font-semibold"
                     >
-                      <TrendingUp className="h-5 w-5 mr-2" />
-                      BUY
+                      {isTrading ? 'Processing...' : 'BUY ↑'}
                     </Button>
                     <Button
                       onClick={() => handleTrade('sell')}
                       disabled={isTrading}
-                      className="bg-red-600 text-white hover:bg-red-700 disabled:bg-red-800 py-4 text-lg font-semibold shadow-lg"
+                      className="bg-red-600 text-white hover:bg-red-700 disabled:bg-red-800 disabled:cursor-not-allowed py-3 text-lg font-semibold"
                     >
-                      <TrendingDown className="h-5 w-5 mr-2" />
-                      SELL
+                      {isTrading ? 'Processing...' : 'SELL ↓'}
                     </Button>
                   </div>
+
+                  {/* Countdown Display */}
+                  {isTrading && (
+                    <div className="mt-6 p-4 bg-blue-900/20 border border-blue-700 rounded-lg">
+                      <div className="text-center">
+                        <div className="text-sm text-blue-300 mb-2">Trade in Progress</div>
+                        <div className="text-2xl font-bold text-blue-400 mb-2">
+                          {Math.floor(tradeDuration / 60)}:{(tradeDuration % 60).toString().padStart(2, '0')}
+                        </div>
+                        <div className="text-xs text-blue-300">
+                          Time remaining until completion
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             )}
