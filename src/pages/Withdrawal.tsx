@@ -23,10 +23,10 @@ const Withdrawal = () => {
   const [withdrawalData, setWithdrawalData] = useState({
     amount: '100',
     paymentMethod: 'Bank Transfer',
-    firstName: 'JUSTIN',
-    lastName: 'AROKIASWAMY',
+    firstName: 'Justin Raju',
+    lastName: 'Arokiaswamy',
     email: 'justin@thealphaandomega.org',
-    phone: '+1 (555) 123-4567',
+    phone: '+91 84828 67180',
     bankName: 'Chase Bank',
     accountNumber: '****1234',
     routingNumber: '021000021'
@@ -53,7 +53,7 @@ const Withdrawal = () => {
       return;
     }
 
-    if (amount > (user?.demoBalance || 0)) {
+    if (amount > (user?.liveBalance || 0)) {
       toast({
         title: "Insufficient Balance",
         description: "Your withdrawal amount exceeds your available balance.",
@@ -91,10 +91,10 @@ const Withdrawal = () => {
       setWithdrawalData({
         amount: '100',
         paymentMethod: 'Bank Transfer',
-        firstName: 'JUSTIN',
-        lastName: 'AROKIASWAMY',
+        firstName: 'Justin Raju',
+        lastName: 'Arokiaswamy',
         email: 'justin@thealphaandomega.org',
-        phone: '+1 (555) 123-4567',
+        phone: '+91 84828 67180',
         bankName: 'Chase Bank',
         accountNumber: '****1234',
         routingNumber: '021000021'
@@ -153,15 +153,15 @@ const Withdrawal = () => {
               <CardContent className="space-y-4">
                 <div className="text-center">
                   <div className="text-3xl font-bold text-blue-400">
-                    ${user.demoBalance.toLocaleString()}
+                    ${user.liveBalance.toLocaleString()}
                   </div>
-                  <div className="text-sm text-gray-400">Available demo balance</div>
+                  <div className="text-sm text-gray-400">Available live balance</div>
                 </div>
                 
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="text-gray-300">Account Type</span>
-                    <Badge className="bg-blue-600 text-white">Demo Account</Badge>
+                    <Badge className="bg-green-600 text-white">Live Account</Badge>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-gray-300">Verification Status</span>
@@ -200,11 +200,11 @@ const Withdrawal = () => {
                           className="mt-1 bg-gray-700 border-gray-600 text-white"
                           placeholder="Enter amount"
                           min="10"
-                          max={user.demoBalance}
+                          max={user.liveBalance}
                           required
                         />
                         <div className="text-xs text-gray-400 mt-1">
-                          Min: $10 | Max: ${user.demoBalance.toLocaleString()}
+                          Min: $10 | Max: ${user.liveBalance.toLocaleString()}
                         </div>
                       </div>
                       

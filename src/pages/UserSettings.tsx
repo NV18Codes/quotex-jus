@@ -153,7 +153,7 @@ const UserSettings = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <Label htmlFor="firstName" className="text-gray-300">First Name</Label>
-                      <Input id="firstName" defaultValue="Justin" className="mt-1 bg-gray-700 border-gray-600 text-white" />
+                      <Input id="firstName" defaultValue="Justin Raju" className="mt-1 bg-gray-700 border-gray-600 text-white" />
                     </div>
                     <div>
                       <Label htmlFor="lastName" className="text-gray-300">Last Name</Label>
@@ -165,7 +165,7 @@ const UserSettings = () => {
                     </div>
                     <div>
                       <Label htmlFor="phone" className="text-gray-300">Phone Number</Label>
-                      <Input id="phone" defaultValue="+1 (555) 123-4567" className="mt-1 bg-gray-700 border-gray-600 text-white" />
+                      <Input id="phone" defaultValue="+91 84828 67180" className="mt-1 bg-gray-700 border-gray-600 text-white" />
                     </div>
                     <div>
                       <Label htmlFor="country" className="text-gray-300">Country</Label>
@@ -223,8 +223,8 @@ const UserSettings = () => {
                       <div>
                         <Label className="text-gray-300">Account Type</Label>
                         <div className="mt-1">
-                          <Badge className="bg-blue-600 text-white">
-                            Demo Account
+                          <Badge className="bg-green-600 text-white">
+                            Live Account
                           </Badge>
                         </div>
                       </div>
@@ -237,15 +237,9 @@ const UserSettings = () => {
                         </div>
                       </div>
                       <div>
-                        <Label className="text-gray-300">Demo Balance</Label>
-                        <div className="text-lg font-semibold text-blue-400">
-                          ${user?.demoBalance.toLocaleString()}
-                        </div>
-                      </div>
-                      <div>
                         <Label className="text-gray-300">Live Balance</Label>
-                        <div className="text-lg font-semibold text-gray-400">
-                          $0.00
+                        <div className="text-lg font-semibold text-green-400">
+                          ${user?.liveBalance.toLocaleString()}
                         </div>
                       </div>
                     </div>

@@ -4,13 +4,12 @@ interface User {
   id: string;
   name: string;
   email: string;
-  demoBalance: number;
   liveBalance: number;
   totalTrades: number;
   winRate: number;
   totalPnL: number;
   tradeHistory: Trade[];
-  accountType?: 'demo' | 'live';
+  accountType: 'live';
 }
 
 interface Trade {
@@ -32,13 +31,12 @@ interface AuthContextType {
   updateBalance: (amount: number) => void;
   setUserFromLocalStorage: () => void;
   // Account switching functionality
-  switchAccount: (accountType: 'demo' | 'live') => void;
+  switchAccount: (accountType: 'live') => void;
   currentBalance: number;
   isLiveBalanceVisible: boolean;
   clearAndReinitializeUser: () => void;
   cleanupInvalidUserData: () => boolean;
   getLiveBalance: () => number;
-  getDemoBalance: () => number;
   resetLiveBalance: () => void;
   refreshUserData: () => void;
 }
@@ -57,15 +55,14 @@ export const useAuth = () => {
 
 const justinUser: User = {
   id: '2',
-  name: 'Justin Arokiaswamy',
+  name: 'Justin Raju Arokiaswamy',
   email: 'justin@thealphaandomega.org',
-  demoBalance: 10000,
   liveBalance: 1000, // Live balance set to 1000 as requested
   totalTrades: 0,
   winRate: 0,
   totalPnL: 0,
   tradeHistory: [],
-  accountType: 'demo'
+  accountType: 'live' // Changed from 'demo' to 'live'
 };
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -89,7 +86,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           console.log('Corrected live balance to $1,000');
         }
         
-        console.log('User data loaded - Demo Balance:', userData.demoBalance, 'Live Balance:', userData.liveBalance);
+        console.log('User data loaded - Live Balance:', userData.liveBalance);
         
         if (savedAuthState === 'true') {
           // User was previously authenticated, restore their session
@@ -116,7 +113,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser(justinUser);
       setIsAuthenticated(false);
       console.log('Initialized new user:', justinUser.name);
-      console.log('New user balances - Demo:', justinUser.demoBalance, 'Live:', justinUser.liveBalance);
+      console.log('New user live balance:', justinUser.liveBalance);
     }
   }, []);
 
@@ -228,8 +225,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return false;
   };
 
-  // Account switching functionality
-  const switchAccount = (accountType: 'demo' | 'live') => {
+  // Account switching functionality (only live now)
+  const switchAccount = (accountType: 'live') => {
     if (user) {
       const updatedUser = {
         ...user,
@@ -240,15 +237,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  // Get current balance based on account type
-  const currentBalance = user?.accountType === 'demo' ? user.demoBalance : user?.liveBalance || 0;
+  // Get current balance based on account type (always live now)
+  const currentBalance = user?.liveBalance || 0;
 
   // Check if live balance should be visible (for demo purposes, always false)
   const isLiveBalanceVisible = false;
 
   // Ensure live balance is always accessible
   const getLiveBalance = () => user?.liveBalance || 0;
-  const getDemoBalance = () => user?.demoBalance || 0;
 
   // Function to reset live balance to $1,000
   const resetLiveBalance = () => {
@@ -293,7 +289,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     clearAndReinitializeUser,
     cleanupInvalidUserData,
     getLiveBalance,
-    getDemoBalance,
     resetLiveBalance,
     refreshUserData
   };

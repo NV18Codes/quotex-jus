@@ -193,7 +193,7 @@ const Markets = () => {
 
     // Simulate trade result after duration - ALWAYS WIN
     setTimeout(() => {
-      const profit = tradeAmount * (0.7 + Math.random() * 0.6); // Always positive profit
+      const profit = tradeAmount * (0.7 + Math.random() * 0.3); // Always positive profit between 70-100%
       
       setActiveTrades(prev => 
         prev.map(trade => 

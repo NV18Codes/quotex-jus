@@ -60,23 +60,18 @@ const TradingPanel = () => {
 
     setIsTrading(true);
 
-    // Simulate trade processing
+    // Simulate trade processing - ALWAYS WIN
     setTimeout(() => {
-      // Simulate trade result (random win/loss for demo purposes)
-      const isWin = Math.random() > 0.5;
-      const profit = isWin ? tradeAmount * 0.8 : -tradeAmount;
+      // Always win with 80% profit
+      const profit = tradeAmount * 0.8;
       
       // Update balance
       updateBalance(profit);
       
       setIsTrading(false);
       
-      // Show result
-      if (isWin) {
-        alert(`Trade completed! You won $${profit.toFixed(2)}`);
-      } else {
-        alert(`Trade completed! You lost $${Math.abs(profit).toFixed(2)}`);
-      }
+      // Show result - always win
+      alert(`Trade completed! You won $${profit.toFixed(2)}`);
     }, 2000);
   };
 
@@ -88,18 +83,10 @@ const TradingPanel = () => {
           <CardTitle className="text-white">Account Balance</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <div className="text-sm text-gray-400">Demo Account</div>
-              <div className="text-lg font-semibold text-blue-400">
-                ${user?.demoBalance.toLocaleString()}
-              </div>
-            </div>
-            <div>
-              <div className="text-sm text-gray-400">Live Account</div>
-              <div className="text-lg font-semibold text-green-400">
-                ${user?.liveBalance.toLocaleString()}
-              </div>
+          <div>
+            <div className="text-sm text-gray-400">Live Account</div>
+            <div className="text-lg font-semibold text-green-400">
+              ${user?.liveBalance.toLocaleString()}
             </div>
           </div>
         </CardContent>

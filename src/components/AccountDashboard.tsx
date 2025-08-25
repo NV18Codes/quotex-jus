@@ -43,8 +43,8 @@ const AccountDashboard = () => {
                 <div>
                   <CardTitle className="flex items-center gap-3 text-white">
                     Welcome back, {user.name}
-                    <Badge className="bg-blue-600 text-white">
-                      DEMO ACCOUNT
+                    <Badge className="bg-green-600 text-white">
+                      LIVE ACCOUNT
                     </Badge>
                   </CardTitle>
                   <CardDescription className="text-gray-400 mt-1">
@@ -67,12 +67,12 @@ const AccountDashboard = () => {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-1 gap-6">
                 {/* Balance Section */}
-                <div className="bg-gradient-to-br from-blue-900/20 to-indigo-900/20 rounded-xl p-6 border border-blue-700">
+                <div className="bg-gradient-to-br from-green-900/20 to-emerald-900/20 rounded-xl p-6 border border-green-700">
                   <div className="flex items-center justify-between mb-4">
                     <h4 className="font-semibold text-white flex items-center gap-2">
-                      <DollarSign className="h-5 w-5 text-blue-400" />
+                      <DollarSign className="h-5 w-5 text-green-400" />
                       Live Balance
                     </h4>
                     <Button
@@ -90,23 +90,6 @@ const AccountDashboard = () => {
                   <div className="mt-3 flex items-center gap-2 text-sm text-green-400 bg-green-900/20 px-3 py-2 rounded-lg border border-green-700">
                     <TrendingUp className="h-4 w-4" />
                     Account Active
-                  </div>
-                </div>
-
-                {/* Demo Balance */}
-                <div className="bg-gradient-to-br from-gray-800 to-gray-700 rounded-xl p-6 border border-gray-600">
-                  <div className="flex items-center justify-between mb-4">
-                    <h4 className="font-semibold text-white flex items-center gap-2">
-                      <DollarSign className="h-5 w-5 text-gray-400" />
-                      Demo Balance
-                    </h4>
-                  </div>
-                  <div className="text-3xl font-bold text-gray-300 mb-2">
-                    {formatCurrency(user.demoBalance)}
-                  </div>
-                  <div className="mt-3 flex items-center gap-2 text-sm text-gray-400 bg-gray-700 px-3 py-2 rounded-lg border border-gray-600">
-                    <Shield className="h-4 w-4" />
-                    Practice Account
                   </div>
                 </div>
               </div>

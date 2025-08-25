@@ -55,7 +55,7 @@ const Hero = () => {
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Experience the future of trading with our advanced platform. 
-              <span className="font-semibold text-gray-900"> Start with $10,000 demo account</span> and trade like a pro.
+              <span className="font-semibold text-gray-900"> Start with $1,000 live account</span> and trade like a pro.
             </p>
           </div>
 

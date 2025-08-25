@@ -23,9 +23,9 @@ const TradingDashboard = () => {
 
   const quickStats = [
     {
-      title: 'Demo Balance',
-      value: `$${user?.demoBalance.toLocaleString()}`,
-      change: 'Demo account',
+      title: 'Live Balance',
+      value: `$${user?.liveBalance.toLocaleString()}`,
+      change: 'Live account',
       isPositive: true,
       icon: Activity
     }
@@ -41,21 +41,13 @@ const TradingDashboard = () => {
             <div>
               <h1 className="text-3xl font-bold text-white">Welcome back, {user?.name}!</h1>
               <p className="text-gray-400 mt-2">
-                Ready to make your next trade? Current balances:
-                <span className="font-semibold text-blue-400 ml-1">
-                  ${user?.demoBalance.toLocaleString()}
-                </span>
-                <span className="text-xs text-gray-500 ml-2">(Demo)</span>
-                <span className="font-semibold text-green-400 ml-3">
+                Ready to make your next trade? Current balance:
+                <span className="font-semibold text-green-400 ml-1">
                   ${user?.liveBalance.toLocaleString()}
                 </span>
                 <span className="text-xs text-gray-500 ml-2">(Live)</span>
               </p>
               <div className="flex items-center gap-4 mt-2">
-                <Badge className="bg-blue-600 text-white">
-                  <Activity className="h-3 w-3 mr-1" />
-                  Demo: ${user?.demoBalance.toLocaleString()}
-                </Badge>
                 <Badge className="bg-green-600 text-white">
                   <Activity className="h-3 w-3 mr-1" />
                   Live: ${user?.liveBalance.toLocaleString()}
@@ -73,11 +65,11 @@ const TradingDashboard = () => {
                   timeZoneName: 'short'
                 })}
               </div>
-              <Badge className="bg-blue-600 text-white mt-1">
+              <Badge className="bg-green-600 text-white mt-1">
                 <Activity className="h-3 w-3 mr-1" />
-                DEMO
+                LIVE
               </Badge>
-              <div className="w-2 h-2 bg-blue-400 rounded-full mr-2 animate-pulse"></div>
+              <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
             </div>
           </div>
         </div>
@@ -89,14 +81,14 @@ const TradingDashboard = () => {
           <TradingChart />
         </div>
         
-        {/* Demo Account Information */}
+        {/* Live Account Information */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          {/* Demo Account Status */}
+          {/* Live Account Status */}
           <Card className="bg-gray-800 border-gray-700">
             <CardHeader className="pb-4">
               <CardTitle className="text-white flex items-center gap-2">
                 <Activity className="h-5 w-5" />
-                Demo Account Status
+                Live Account Status
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -106,10 +98,10 @@ const TradingDashboard = () => {
                     <div>
                       <div className="text-sm text-gray-400">{stat.title}</div>
                       <div className="text-lg font-bold text-white">{stat.value}</div>
-                      <div className={`text-xs mt-1 ${stat.isPositive ? 'text-blue-400' : 'text-gray-400'}`}>{stat.change}</div>
+                      <div className={`text-xs mt-1 ${stat.isPositive ? 'text-green-400' : 'text-gray-400'}`}>{stat.change}</div>
                     </div>
-                    <div className={`p-2 rounded-lg ${stat.isPositive ? 'bg-blue-900/20' : 'bg-gray-600'}`}>
-                      <stat.icon className={`h-4 w-4 ${stat.isPositive ? 'text-blue-400' : 'text-gray-400'}`} />
+                    <div className={`p-2 rounded-lg ${stat.isPositive ? 'bg-green-900/20' : 'bg-gray-600'}`}>
+                      <stat.icon className={`h-4 w-4 ${stat.isPositive ? 'text-green-400' : 'text-gray-400'}`} />
                     </div>
                   </div>
                 ))}
@@ -130,19 +122,10 @@ const TradingDashboard = () => {
                 <div className="flex items-center justify-between p-3 border border-gray-600 rounded-lg bg-gray-700">
                   <div>
                     <div className="text-sm text-gray-400">Account Type</div>
-                    <div className="text-lg font-bold text-blue-400">Demo Account</div>
+                    <div className="text-lg font-bold text-green-400">Live Account</div>
                   </div>
-                  <div className="p-2 rounded-lg bg-blue-900/20">
-                    <Activity className="h-4 w-4 text-blue-400" />
-                  </div>
-                </div>
-                <div className="flex items-center justify-between p-3 border border-gray-600 rounded-lg bg-gray-700">
-                  <div>
-                    <div className="text-sm text-gray-400">Demo Balance</div>
-                    <div className="text-lg font-bold text-blue-400">${user?.demoBalance.toLocaleString()}</div>
-                  </div>
-                  <div className="p-2 rounded-lg bg-blue-900/20">
-                    <Activity className="h-4 w-4 text-blue-400" />
+                  <div className="p-2 rounded-lg bg-green-900/20">
+                    <Activity className="h-4 w-4 text-green-400" />
                   </div>
                 </div>
                 <div className="flex items-center justify-between p-3 border border-gray-600 rounded-lg bg-gray-700">

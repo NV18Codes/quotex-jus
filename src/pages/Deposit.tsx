@@ -22,10 +22,10 @@ const Deposit = () => {
   const [depositData, setDepositData] = useState({
     amount: '100',
     paymentMethod: 'Bank Transfer',
-    firstName: 'Justin',
+    firstName: 'Justin Raju',
     lastName: 'Arokiaswamy',
     email: 'justin@thealphaandomega.org',
-    phone: '+1 (555) 123-4567'
+    phone: '+91 84828 67180'
   });
 
   const quickAmounts = [50, 100, 250, 500, 1000, 2500];
@@ -85,10 +85,10 @@ const Deposit = () => {
       setDepositData({
         amount: '100',
         paymentMethod: 'Bank Transfer',
-        firstName: 'Justin',
+        firstName: 'Justin Raju',
         lastName: 'Arokiaswamy',
         email: 'justin@thealphaandomega.org',
-        phone: '+1 (555) 123-4567'
+        phone: '+91 84828 67180'
       });
 
     } catch (error) {
@@ -147,13 +147,6 @@ const Deposit = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-400">
-                    ${user.demoBalance.toLocaleString()}
-                  </div>
-                  <div className="text-sm text-gray-400">Current demo balance</div>
-                </div>
-                
-                <div className="text-center">
                   <div className="text-2xl font-bold text-green-400">
                     ${user.liveBalance.toLocaleString()}
                   </div>
@@ -163,7 +156,7 @@ const Deposit = () => {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="text-gray-300">Account Type</span>
-                    <Badge className="bg-blue-600 text-white">Demo Account</Badge>
+                    <Badge className="bg-blue-600 text-white">Live Account</Badge>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-gray-300">User ID</span>

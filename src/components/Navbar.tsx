@@ -214,17 +214,12 @@ const Navbar = () => {
                   <div className="bg-gray-800/70 rounded-lg px-4 py-2 border border-gray-700">
                     <div className="text-right">
                       <div className="text-sm text-white font-semibold">{user?.name}</div>
-                      <div className="text-xs text-gray-400">Demo Account</div>
+                      <div className="text-xs text-gray-400">Live Account</div>
                     </div>
                   </div>
                   
                   {/* Balance Display */}
                   <div className="flex space-x-2">
-                    <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg px-3 py-2 shadow-lg">
-                      <Badge className="bg-transparent text-white border-0 text-xs font-semibold">
-                        Demo: ${user?.demoBalance.toLocaleString()}
-                      </Badge>
-                    </div>
                     <div className="bg-gradient-to-r from-green-600 to-green-700 rounded-lg px-3 py-2 shadow-lg">
                       <Badge className="bg-transparent text-white border-0 text-xs font-semibold">
                         Live: ${user?.liveBalance.toLocaleString()}
@@ -366,10 +361,10 @@ const Navbar = () => {
                   <div className="pt-4 pb-3 border-t border-gray-700">
                     <div className="px-3 py-3 bg-gray-700/50 rounded-lg mb-3">
                       <div className="text-sm text-white font-semibold">{user?.name}</div>
-                      <div className="text-xs text-gray-400 mb-2">Demo Account</div>
-                      <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg px-3 py-1 inline-block">
+                      <div className="text-xs text-gray-400 mb-2">Live Account</div>
+                      <div className="bg-gradient-to-r from-green-600 to-green-700 rounded-lg px-3 py-1 inline-block">
                         <Badge className="bg-transparent text-white border-0 text-sm font-semibold">
-                          ${user?.demoBalance.toLocaleString()}
+                          ${user?.liveBalance.toLocaleString()}
                         </Badge>
                       </div>
                     </div>

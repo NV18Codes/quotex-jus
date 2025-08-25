@@ -29,7 +29,6 @@ const TradingInterface = ({
 
   const canTrade = () => {
     if (!isAuthenticated) return false;
-    if (user?.accountType === 'demo') return true;
     if (user?.accountType === 'live' && currentBalance > 0) return true;
     return false;
   };

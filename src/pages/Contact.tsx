@@ -304,7 +304,7 @@ const Contact = () => {
                     <CardContent className="p-4">
                       <h4 className="font-semibold text-gray-900 mb-2">What is the minimum deposit?</h4>
                       <p className="text-sm text-gray-600">
-                        The minimum deposit is $10 for demo accounts and $100 for live trading accounts.
+                        The minimum deposit is $10 for live trading accounts.
                       </p>
                     </CardContent>
                   </Card>

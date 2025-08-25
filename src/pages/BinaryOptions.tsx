@@ -228,7 +228,7 @@ const BinaryOptions = () => {
           </h2>
           <p className="text-blue-100 mb-8 max-w-2xl mx-auto leading-relaxed">
             Join thousands of traders who are already earning profits with binary options. 
-            Start with a demo account to practice risk-free.
+            Start with a live account to trade with real money.
           </p>
           <div className="flex justify-center gap-4">
             <Button 
@@ -236,7 +236,7 @@ const BinaryOptions = () => {
               className="bg-white text-blue-600 hover:bg-gray-100 transition-colors duration-200"
               onClick={() => setIsAuthModalOpen(true)}
             >
-              Open Demo Account
+              Open Live Account
             </Button>
             <Button size="lg" variant="outline" className="border-white text-white hover:bg-blue-700 transition-colors duration-200">
               Learn More
